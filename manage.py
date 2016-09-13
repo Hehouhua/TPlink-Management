@@ -17,13 +17,13 @@ class TPLink_Manage:
 		self.apiUrl=apiUrl
 		self.keyUrl=keyUrl
 		self.url=''
-		self.strde=''#´ÓkeyUrlÀ´
-		self.dict=''#´ÓkeyUrlÀ´
-		self.session=''	#this.session = this.securityEncode(authInfo[3], pwd, authInfo[4]);Ëã³öÀ´µÄ¼¸·ÖÖÓÒ»±ä
+		self.strde=''#ä»keyUrlæ¥
+		self.dict=''#ä»keyUrlæ¥
+		self.session=''	#this.session = this.securityEncode(authInfo[3], pwd, authInfo[4]);ç®—å‡ºæ¥çš„å‡ åˆ†é’Ÿä¸€å˜
 		self.pwd = pwd
-		self.encPwd=''#¸ù¾İ¼ÓÃÜËã·¨securityEncode(pwd, self.strDe, self.dic)Ëã³öÀ´µÄ£¬Ã¿´ÎĞŞ¸ÄÃÜÂë»òÕßauthinfo»»ÁË¾ÍÓÃÕâ¸ö
+		self.encPwd=''#æ ¹æ®åŠ å¯†ç®—æ³•securityEncode(pwd, self.strDe, self.dic)ç®—å‡ºæ¥çš„ï¼Œæ¯æ¬¡ä¿®æ”¹å¯†ç æˆ–è€…authinfoæ¢äº†å°±ç”¨è¿™ä¸ª
 		self.authInfo=[]#authInfo
-		self.result=result.result()#ÈÏÖ¤½á¹û
+		self.result=result.result()#è®¤è¯ç»“æœ
 	
 	def getAuthInfo(self):
 		self.request(self.authInfoUrl, "GET")
@@ -92,7 +92,7 @@ class TPLink_Manage:
 		else:
 			conn.request(method='POST',url=url , body=params,headers={'Cookie': cookie,'Content-Type': 'application/x-www-form-urlencoded','Origin': 'http://192.168.1.1','User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36','Referer': 'http://192.168.1.1/'})
 		response = conn.getresponse()
-		#¸øresult¸³Öµ±íÊ¾Õâ´ÎÇëÇóµÄ×´Ì¬
+		#ç»™resultèµ‹å€¼è¡¨ç¤ºè¿™æ¬¡è¯·æ±‚çš„çŠ¶æ€
 		self.result.data = response.read()
 		self.result.headers = response.getheaders()
 		self.result.errorno = config.EUNAUTH if response.status ==401 else config.ENONE
@@ -144,7 +144,7 @@ class TPLink_Manage:
 		url  = self.apiUrl.replace("$CODE$",str(config.TDDP_REBOOT)).replace("$ASYN$","0").replace("$ID$",encodePara(self.session))
 		self.request(url, "POST")
 		if config.EUNAUTH == self.result.errorno:
-			print "ÈÏÖ¤ÒÑÊ§Ğ§"
+			print "è®¤è¯å·²å¤±æ•ˆ"
 			return
 		#print self.result.data
 		
@@ -152,7 +152,7 @@ class TPLink_Manage:
 		url  = self.apiUrl.replace("$CODE$",str(config.TDDP_READ)).replace("$ASYN$","1").replace("$ID$",encodePara(self.session))
 		self.request(url, "POST",str(status))
 		if config.EUNAUTH == self.result.errorno:
-			print "ÈÏÖ¤ÒÑÊ§Ğ§"
+			print "è®¤è¯å·²å¤±æ•ˆ"
 			#return
 		print self.result.data
 		#print self.strde
@@ -176,7 +176,7 @@ def main():
 	apiUrl=protocol+host+'/?code=$CODE$&asyn=$ASYN$&id=$ID$'
 	keyUrl=protocol+host+'/lib/Quary.js'
 	
-	console=TPLink_Manage("iiecas",authInfoUrl,apiUrl,keyUrl)
+	console=TPLink_Manage("your_password_here",authInfoUrl,apiUrl,keyUrl)
 	console.manage()
 	print "strde: ",console.strde
 	print "dict: ",console.dict
